@@ -1,12 +1,14 @@
 package com.example.PAPS.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Employee {
 
     @Id
@@ -39,7 +41,6 @@ public class Employee {
     @Column(nullable = false)
     private Date dateOfEmployment;
 
-    @Column(nullable = false)
     private Date dateOfDismissal;
 
     @Column(nullable = false, unique = true)

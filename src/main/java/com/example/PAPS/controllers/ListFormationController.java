@@ -2,6 +2,8 @@ package com.example.PAPS.controllers;
 
 import com.example.PAPS.dtos.*;
 import com.example.PAPS.entities.*;
+import com.example.PAPS.services.EmployeeServiceImpl;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,18 +14,30 @@ import java.util.List;
 @RequestMapping("/list")
 public class ListFormationController {
 
-    @PreAuthorize("hasAnyRole('DIRECTOR', 'SERVICE_MANAGER', 'PARTS_SELLING_MANAGER')")
+    private final EmployeeServiceImpl employeeService;
+
+    public ListFormationController(EmployeeServiceImpl employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
     @GetMapping("/spares")
     public List<Spare> getSparesList() { //справочник запчастей
         List<Spare> spares = new ArrayList<>();
+        Spare spare = new Spare();
+        spare.setId(1L);
+        spare.setName("Wheel");
+        spare.setCode("11234");
+        spare.setSupplier(new Supplier());
+        spare.setVendorCode(939252934523L);
+        spares.add(spare);
         return spares;
     }
 
-    @PreAuthorize("hasAnyRole('DIRECTOR','HR')")
+    @Secured({"ROLE_DIRECTOR", "ROLE_HR"})
     @GetMapping("/staff")
     public List<Employee> getStaffList() { //справочник сотрудников
-        List<Employee> staff = new ArrayList<>();
-        return staff;
+        return employeeService.getEmployeeList();
     }
 
     @PreAuthorize("hasAnyRole('DIRECTOR', 'SUPPLIER_D')")

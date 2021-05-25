@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MaintenanceOrderDto {
+public class UserDto {
 
     private Long id;
-    private Date dateOfMaintenance;
-    private String description, code, car;
-    private Double price;
+    private String employee, username, password;
 }
