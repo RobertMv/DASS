@@ -20,6 +20,8 @@ public class Spare {
 
     private Long vendorCode;
 
+    private Long amount;
+
     @ManyToOne
     private Supplier supplier;
 }

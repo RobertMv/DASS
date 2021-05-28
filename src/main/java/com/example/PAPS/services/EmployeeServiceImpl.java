@@ -1,5 +1,6 @@
 package com.example.PAPS.services;
 
+import com.example.PAPS.dtos.EmployeeDto;
 import com.example.PAPS.entities.Employee;
 import com.example.PAPS.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,10 @@ public class EmployeeServiceImpl {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> getEmployeeList(){
+    public List<Employee> getEmployeeList() {
         return employeeRepository.findAll();
     }
 
+    public void add(EmployeeDto employeeDto) {
+    }
 }

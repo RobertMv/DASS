@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class EmployeeDto {
 
-    private  Long id, passportID, INN, SNILS;
+    private Long id, passportID, INN, SNILS;
     private String name, surname, patronymic, sex, phone, email, departmentCode, positionCode;
     private Date dateOfBirth, dateOfEmployment, dateOfDismissal;
 }
