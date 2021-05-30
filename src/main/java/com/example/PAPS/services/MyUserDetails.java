@@ -16,10 +16,22 @@ public class MyUserDetails implements UserDetails {
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
 
-    public MyUserDetails(String username, String password, List<SimpleGrantedAuthority> authorities){
+    public MyUserDetails(String username, String password, List<SimpleGrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+    }
+
+    public static UserDetails fromUser(User user) {
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                user.getRole().getAuthorities()
+        );
     }
 
     @Override
@@ -55,17 +67,5 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public static UserDetails fromUser(User user){
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                user.getRole().getAuthorities()
-        );
     }
 }

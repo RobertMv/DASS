@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SpareRepository extends JpaRepository<Spare, Long> {
+    Spare findByVendorCode(Long vendorCode);
 }

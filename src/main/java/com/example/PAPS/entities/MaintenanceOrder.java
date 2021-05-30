@@ -27,6 +27,9 @@ public class MaintenanceOrder {
     @Column(nullable = false)
     private String code;
 
+    @Column(nullable = false)
+    private boolean isDone;
+
     @OneToOne
     private Car car;
 }

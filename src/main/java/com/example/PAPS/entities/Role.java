@@ -16,11 +16,11 @@ public enum Role {
 
     private final String role;
 
-    Role(String role){
+    Role(String role) {
         this.role = role;
     }
 
-    public Set<SimpleGrantedAuthority> getAuthorities(){
+    public Set<SimpleGrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
         return authorities;

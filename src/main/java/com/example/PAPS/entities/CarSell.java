@@ -6,22 +6,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Data
 @NoArgsConstructor
-public class Spare {
+@Data
+public class CarSell {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    @OneToOne
+    private Car car;
 
-    private String code;
-
-    private Long vendorCode;
-
-    private Long amount;
-
-    @ManyToOne
-    private Supplier supplier;
+    @OneToOne
+    private Client buyer;
 }

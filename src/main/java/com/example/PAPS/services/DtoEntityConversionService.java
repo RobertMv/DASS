@@ -1,15 +1,14 @@
 package com.example.PAPS.services;
 
-import com.example.PAPS.dtos.EmployeeDto;
-import com.example.PAPS.dtos.InsuranceDto;
-import com.example.PAPS.dtos.SpareDto;
-import com.example.PAPS.entities.Employee;
-import com.example.PAPS.entities.Insurance;
-import com.example.PAPS.entities.Spare;
+import com.example.PAPS.dtos.*;
+import com.example.PAPS.entities.*;
 import com.example.PAPS.repositories.CarRepository;
 import com.example.PAPS.repositories.ClientRepository;
+import com.example.PAPS.repositories.MaintenanceOrderRepository;
 import com.example.PAPS.repositories.SupplierRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class DtoEntityConversionService {
@@ -17,24 +16,26 @@ public class DtoEntityConversionService {
     private final SupplierRepository supplierRepository;
     private final CarRepository carRepository;
     private final ClientRepository clientRepository;
+    private final MaintenanceOrderRepository orderRepository;
 
-
-    protected DtoEntityConversionService(SupplierRepository supplierRepository, CarRepository carRepository, ClientRepository clientRepository) {
+    protected DtoEntityConversionService(SupplierRepository supplierRepository, CarRepository carRepository, ClientRepository clientRepository, MaintenanceOrderRepository orderRepository) {
         this.supplierRepository = supplierRepository;
         this.carRepository = carRepository;
         this.clientRepository = clientRepository;
+        this.orderRepository = orderRepository;
     }
 
-    public Spare convert(SpareDto dto){ // from dto to entity
+    public Spare convert(SpareDto dto) { // from dto to entity
         Spare entity = new Spare();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setCode(dto.getCode());
+        entity.setVendorCode(dto.getVendorCode());
         entity.setSupplier(supplierRepository.findSupplierByName(dto.getSupplier()));
         return entity;
     }
 
-    public SpareDto convert(Spare entity){ // from entity to dto
+    public SpareDto convert(Spare entity) { // from entity to dto
         SpareDto dto = new SpareDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
@@ -44,7 +45,7 @@ public class DtoEntityConversionService {
         return dto;
     }
 
-    public Employee convert(EmployeeDto dto){
+    public Employee convert(EmployeeDto dto) {
         Employee entity = new Employee();
         entity.setId(dto.getId());
         entity.setDateOfBirth(dto.getDateOfBirth());
@@ -63,7 +64,7 @@ public class DtoEntityConversionService {
         return entity;
     }
 
-    public EmployeeDto convert(Employee entity){
+    public EmployeeDto convert(Employee entity) {
         EmployeeDto dto = new EmployeeDto();
         dto.setId(entity.getId());
         dto.setDateOfBirth(entity.getDateOfBirth());
@@ -82,7 +83,7 @@ public class DtoEntityConversionService {
         return dto;
     }
 
-    public Insurance convert(InsuranceDto dto){
+    public Insurance convert(InsuranceDto dto) {
         Insurance entity = new Insurance();
         entity.setId(dto.getId());
         entity.setCar(carRepository.findCarByVIN("VIN"));
@@ -90,6 +91,42 @@ public class DtoEntityConversionService {
         entity.setSeries(dto.getSeries());
         entity.setNumber(dto.getNumber());
         entity.setType(dto.getType());
+        return entity;
+    }
+
+    public InsuranceDto convert(Insurance entity){
+        return new InsuranceDto();
+    }
+
+    public Supplier convert(SupplierDto dto){
+        Supplier entity = new Supplier();
+        entity.setId(dto.getId());
+        entity.setINN(dto.getINN());
+        entity.setPhone(dto.getPhone());
+        entity.setName(dto.getName());
+        entity.setAddress(dto.getAddress());
+        entity.setBankAccount(dto.getBankAccount());
+        return entity;
+    }
+
+    public MaintenanceOrder convert(MaintenanceOrderDto dto){
+        MaintenanceOrder entity = new MaintenanceOrder();
+        entity.setId(dto.getId());
+        entity.setCode(dto.getCode());
+        entity.setCar(carRepository.findCarByVIN("VIN"));
+        entity.setDescription(dto.getDescription());
+        return entity;
+    }
+
+    public Client convert(ClientDto dto){
+        Client entity = new Client();
+
+        return entity;
+    }
+
+    public Car convert(CarDto dto){
+        Car entity = new Car();
+
         return entity;
     }
 }

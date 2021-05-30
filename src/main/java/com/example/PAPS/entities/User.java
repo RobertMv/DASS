@@ -18,7 +18,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "username", nullable = false)
+    @JoinColumn(name = "employee", referencedColumnName = "email")
     private String username;
 
     @OneToOne
