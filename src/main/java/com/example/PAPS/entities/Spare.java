@@ -20,7 +20,7 @@ public class Spare {
 
     private Long vendorCode;
 
-    private Long amount;
+    private Integer amount;
 
     @ManyToOne
     private Supplier supplier;

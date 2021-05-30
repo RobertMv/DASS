@@ -13,6 +13,6 @@ public class MaintenanceOrderDto {
 
     private Long id;
     private Date dateOfMaintenance;
-    private String description, code, car;
+    private String description, car;
     private Double price;
 }

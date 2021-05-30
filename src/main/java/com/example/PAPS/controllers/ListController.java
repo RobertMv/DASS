@@ -46,7 +46,7 @@ public class ListController {
         return supplierService.getAllSuppliers();
     }
 
-    @Secured({"ROLE_DIRECTOR", "ROLE_AUTO_SELLING_MANAGER"})
+    @Secured({"ROLE_DIRECTOR", "ROLE_CAR_SELLING_MANAGER"})
     @GetMapping("/cars")
     public List<Car> getDeliveredCars() { // справочник машин (таких как я прям, гы)
         return carService.getAllCars();
@@ -94,13 +94,13 @@ public class ListController {
         orderService.add(maintenanceOrderDto);
     }
 
-    @Secured({"ROLE_SERVICE_MANAGER", "ROLE_AUTO_SELLING_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
+    @Secured({"ROLE_SERVICE_MANAGER", "ROLE_CAR_SELLING_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
     @PostMapping("/add/client")
     public void addClientToSystem(@RequestBody ClientDto clientDto){
         clientService.add(clientDto);
     }
 
-    @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER", "ROLE_AUTO_SELLING_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
+    @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER", "ROLE_CAR_SELLING_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
     @GetMapping("/clients")
     public List<Client> getClients(){
         return clientService.getClients();

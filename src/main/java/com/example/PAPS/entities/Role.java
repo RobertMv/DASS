@@ -8,7 +8,7 @@ import java.util.Set;
 public enum Role {
     DIRECTOR("DIRECTOR"), //директор
     SERVICE_MANAGER("SERVICE_MANAGER"), //менеджер тех центра
-    AUTO_SELLING_MANAGER("AUTO_SELLING_MANAGER"), //менеджер продаж машин (таких, как я)
+    CAR_SELLING_MANAGER("CAR_SELLING_MANAGER"), //менеджер продаж машин (таких, как я)
     PARTS_SELLING_MANAGER("PARTS_SELLING_MANAGER"), //менеджер продаж запчастей и овощей
     HR("HR"), //ну тут понятно, симпатичная девочка-кадровик
     MAINTENANCE_WORKER("MAINTENANCE_WORKER"), // сотрудник тех центра

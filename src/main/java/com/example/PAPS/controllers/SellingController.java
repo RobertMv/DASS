@@ -26,7 +26,7 @@ public class SellingController {
         this.orderService = orderService;
     }
 
-    @Secured("ROLE_AUTO_SELLING_MANAGER")
+    @Secured("ROLE_CAR_SELLING_MANAGER")
     @PostMapping("/car")
     public void sellCar(@RequestBody CarDto carDto) {
         carService.sell(carDto);

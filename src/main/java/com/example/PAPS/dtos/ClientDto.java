@@ -11,6 +11,6 @@ public class ClientDto {
 
     private Long id;
     private String FIO;
-    private Integer passportId;
+    private Integer passportID;
     private String address;
 }

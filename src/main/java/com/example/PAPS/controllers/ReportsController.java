@@ -22,7 +22,7 @@ public class ReportsController {
         return reportsService.getOrdersReport();
     }
 
-    @Secured({"ROLE_DIRECTOR", "ROLE_AUTO_SELLING_MANAGER"})
+    @Secured({"ROLE_DIRECTOR", "ROLE_CAR_SELLING_MANAGER"})
     @GetMapping("/sells")
     public String getSellsReport() {
         return reportsService.getSellsReport();

@@ -18,5 +18,6 @@ public class CarDto {
     private Date dateOfManufacture;
     private Double price;
     private String owner;
+    private Integer amount;
 
 }
