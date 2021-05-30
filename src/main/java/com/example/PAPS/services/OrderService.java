@@ -23,8 +23,17 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    public List<MaintenanceOrder> getToDoOrders(){
+        return orderRepository.findAllByIsDoneIsFalse();
+    }
+
     public List<MaintenanceOrder> getAllOrders(){
         return orderRepository.findAll();
     }
 
+    public void orderIsDone(MaintenanceOrderDto orderDto){
+        MaintenanceOrder order = orderRepository.findById(orderDto.getId()).get();
+        order.setDone(true);
+        orderRepository.save(order);
+    }
 }

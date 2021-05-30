@@ -4,33 +4,33 @@ import com.example.PAPS.dtos.*;
 import com.example.PAPS.entities.*;
 import com.example.PAPS.services.*;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/list")
-public class ListFormationController {
+public class ListController {
 
     private final EmployeeServiceImpl employeeService;
     private final SpareService spareService;
     private final SupplierService supplierService;
     private final CarService carService;
     private final OrderService orderService;
+    private final ClientService clientService;
 
-    public ListFormationController(EmployeeServiceImpl employeeService, SpareService spareService, SupplierService supplierService, CarService carService, OrderService orderService) {
+    public ListController(EmployeeServiceImpl employeeService, SpareService spareService, SupplierService supplierService, CarService carService, OrderService orderService, ClientService clientService) {
         this.employeeService = employeeService;
         this.spareService = spareService;
         this.supplierService = supplierService;
         this.carService = carService;
         this.orderService = orderService;
+        this.clientService = clientService;
     }
 
     @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
     @GetMapping("/spares")
-    public List<Spare> getSparesList() { //справочник запчастей
+    public List<Spare> getAvailableSpares() { //справочник запчастей
         return spareService.getAll();
     }
 
@@ -40,22 +40,28 @@ public class ListFormationController {
         return employeeService.getEmployeeList();
     }
 
-    @PreAuthorize("hasAnyRole('DIRECTOR', 'SUPPLIER_D')")
+    @Secured({"ROLE_DIRECTOR", "ROLE_SUPPLIER_D"})
     @GetMapping("/suppliers")
     public List<Supplier> getSuppliersList() { //справочник поставщиков овощей
         return supplierService.getAllSuppliers();
     }
 
-    @PreAuthorize("hasAnyRole('DIRECTOR', 'AUTO_SELLING_MANAGER')")
+    @Secured({"ROLE_DIRECTOR", "ROLE_AUTO_SELLING_MANAGER"})
     @GetMapping("/cars")
-    public List<Car> getCars() { // справочник машин (таких как я прям, гы)
+    public List<Car> getDeliveredCars() { // справочник машин (таких как я прям, гы)
         return carService.getAllCars();
     }
 
-    @PreAuthorize("hasAnyRole('SERVICE_MANAGER', 'MAINTENANCE_WORKER')")
+    @Secured({"ROLE_SERVICE_MANAGER", "ROLE_MAINTENANCE_WORKER"})
     @GetMapping("/maintenance-orders")
     public List<MaintenanceOrder> getMaintenanceOrders() {
-        return orderService.getAllOrders();
+        return orderService.getToDoOrders();
+    }
+
+    @Secured({"ROLE_SERVICE_MANAGER", "ROLE_MAINTENANCE_WORKER"})
+    @PostMapping("/order/done")
+    public void markOrderAsDone(@RequestBody MaintenanceOrderDto orderDto){
+        orderService.orderIsDone(orderDto);
     }
 
     @Secured("ROLE_DIRECTOR")
@@ -64,7 +70,7 @@ public class ListFormationController {
         spareService.add(spareDto);
     }
 
-    @PreAuthorize("hasRole('HR')")
+    @Secured("ROLE_HR")
     @PostMapping("/add/employee")
     public void addEmployeeToList(@RequestBody EmployeeDto employeeDto) {
         employeeService.add(employeeDto);
@@ -76,15 +82,27 @@ public class ListFormationController {
         supplierService.add(supplierDto);
     }
 
-    @PreAuthorize("hasRole('SUPPLIER_D')")
+    @Secured("ROLE_SUPPLIER_D")
     @PostMapping("/add/car")
     public void addCarToList(@RequestBody CarDto carDto) {
         carService.add(carDto);
     }
 
-    @PreAuthorize("hasRole('SERVICE_MANAGER')")
+    @Secured("ROLE_SERVICE_MANAGER")
     @PostMapping("/add/maintenance-order")
     public void addMaintenanceOrderToList(@RequestBody MaintenanceOrderDto maintenanceOrderDto) {
         orderService.add(maintenanceOrderDto);
+    }
+
+    @Secured({"ROLE_SERVICE_MANAGER", "ROLE_AUTO_SELLING_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
+    @PostMapping("/add/client")
+    public void addClientToSystem(@RequestBody ClientDto clientDto){
+        clientService.add(clientDto);
+    }
+
+    @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER", "ROLE_AUTO_SELLING_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
+    @GetMapping("/clients")
+    public List<Client> getClients(){
+        return clientService.getClients();
     }
 }

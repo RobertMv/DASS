@@ -117,4 +117,16 @@ public class DtoEntityConversionService {
         entity.setDescription(dto.getDescription());
         return entity;
     }
+
+    public Client convert(ClientDto dto){
+        Client entity = new Client();
+
+        return entity;
+    }
+
+    public Car convert(CarDto dto){
+        Car entity = new Car();
+
+        return entity;
+    }
 }

@@ -11,16 +11,21 @@ import java.util.List;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final DtoEntityConversionService conversionService;
 
-    public CarService(CarRepository carRepository) {
+    public CarService(CarRepository carRepository, DtoEntityConversionService conversionService) {
         this.carRepository = carRepository;
+        this.conversionService = conversionService;
     }
 
     public void add(CarDto carDto) {
+        carRepository.save(conversionService.convert(carDto));
     }
 
     public void sell(CarDto carDto){
-
+        Car car = carRepository.findCarByVIN(carDto.getVIN());
+        car.setAmount(car.getAmount()-1);
+        carRepository.save(car);
     }
 
     public List<Car> getAllCars(){

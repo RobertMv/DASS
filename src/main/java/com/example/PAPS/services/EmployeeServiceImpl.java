@@ -11,9 +11,11 @@ import java.util.List;
 public class EmployeeServiceImpl {
 
     private final EmployeeRepository employeeRepository;
+    private final DtoEntityConversionService conversionService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DtoEntityConversionService conversionService) {
         this.employeeRepository = employeeRepository;
+        this.conversionService = conversionService;
     }
 
     public List<Employee> getEmployeeList() {
@@ -21,5 +23,6 @@ public class EmployeeServiceImpl {
     }
 
     public void add(EmployeeDto employeeDto) {
+        employeeRepository.save(conversionService.convert(employeeDto));
     }
 }
