@@ -18,7 +18,7 @@ public class Client {
     private String FIO;
 
     @Column(name = "passport_id", nullable = false, unique = true)
-    private Integer passportID;
+    private Long passportID;
 
     @Column(name = "address", nullable = false)
     private String address;

@@ -12,12 +12,8 @@ import java.util.Date;
 public class CarDto {
 
     private Long id;
-    private String VIN;
-    private String model;
-    private String color;
+    private String VIN, model, color, owner;
     private Date dateOfManufacture;
     private Double price;
-    private String owner;
-    private Integer amount;
-
+    private Long ownerPassport;
 }

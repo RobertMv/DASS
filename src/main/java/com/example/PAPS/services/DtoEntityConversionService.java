@@ -161,12 +161,11 @@ public class DtoEntityConversionService {
     public Car convert(CarDto dto) {
         Car entity = new Car();
         entity.setId(dto.getId());
-        entity.setAmount(dto.getAmount());
         entity.setPrice(dto.getPrice());
         entity.setColor(dto.getColor());
         entity.setModel(dto.getModel());
         entity.setDateOfManufacture(dto.getDateOfManufacture());
-        entity.setOwner(clientRepository.findClientByPassportID(dto.getOwner()));
+        entity.setOwner(clientRepository.findClientByPassportID(dto.getOwnerPassport()));
         entity.setVIN(dto.getVIN());
         return entity;
     }
@@ -174,12 +173,12 @@ public class DtoEntityConversionService {
     public CarDto convert(Car entity) {
         CarDto dto = new CarDto();
         dto.setId(entity.getId());
-        dto.setAmount(entity.getAmount());
         dto.setPrice(entity.getPrice());
         dto.setColor(entity.getColor());
         dto.setModel(entity.getModel());
         dto.setDateOfManufacture(entity.getDateOfManufacture());
-        dto.setOwner(entity.getOwner().getFIO() + entity.getOwner().getPassportID());
+        dto.setOwner(entity.getOwner().getFIO());
+        dto.setOwnerPassport(entity.getOwnerPassport());
         dto.setVIN(entity.getVIN());
         return dto;
     }

@@ -64,7 +64,7 @@ public class ListController {
         orderService.orderIsDone(orderDto);
     }
 
-    @Secured("ROLE_DIRECTOR")
+    @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER"})
     @GetMapping("/add/spare")
     public void addSpareToList(@RequestBody SpareDto spareDto) {
         spareService.add(spareDto);
@@ -76,6 +76,12 @@ public class ListController {
         employeeService.add(employeeDto);
     }
 
+    @Secured("ROLE_HR")
+    @DeleteMapping("/delete/employee")
+    public void deleteEmployee(@RequestBody EmployeeDto employeeDto) {
+        employeeService.delete(employeeDto);
+    }
+
     @Secured("ROLE_SUPPLIER_D")
     @PostMapping("/add/supplier")
     public void addSupplierToList(@RequestBody SupplierDto supplierDto) {
@@ -83,7 +89,7 @@ public class ListController {
     }
 
     @Secured("ROLE_SUPPLIER_D")
-    @PostMapping("/add/car")
+    @GetMapping("/add/car")
     public void addCarToList(@RequestBody CarDto carDto) {
         carService.add(carDto);
     }
@@ -95,7 +101,7 @@ public class ListController {
     }
 
     @Secured({"ROLE_SERVICE_MANAGER", "ROLE_CAR_SELLING_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
-    @PostMapping("/add/client")
+    @GetMapping("/add/client")
     public void addClientToSystem(@RequestBody ClientDto clientDto){
         clientService.add(clientDto);
     }

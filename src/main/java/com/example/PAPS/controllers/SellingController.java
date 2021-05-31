@@ -7,10 +7,7 @@ import com.example.PAPS.services.CarService;
 import com.example.PAPS.services.OrderService;
 import com.example.PAPS.services.SpareService;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sell")
@@ -33,8 +30,8 @@ public class SellingController {
     }
 
     @Secured("ROLE_PARTS_SELLING_MANAGER")
-    @PostMapping("/spare")
-    public void sellSpare(@RequestBody SpareDto spareDto, Integer amount) {
+    @GetMapping("/spare/{amount}")
+    public void sellSpare(@RequestBody SpareDto spareDto, @PathVariable Integer amount) {
         spareService.sell(spareDto, amount);
     }
 

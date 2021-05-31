@@ -1,5 +1,8 @@
 package com.example.PAPS.configuration;
 
+import com.example.PAPS.entities.Role;
+import com.example.PAPS.entities.User;
+import com.example.PAPS.repositories.UserRepository;
 import com.example.PAPS.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.PostConstruct;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -23,10 +28,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MyUserDetailsService myUserDetailsService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public WebSecurityConfig(MyUserDetailsService myUserDetailsService) {
+    public WebSecurityConfig(MyUserDetailsService myUserDetailsService, UserRepository userRepository) {
         this.myUserDetailsService = myUserDetailsService;
+        this.userRepository = userRepository;
+    }
+
+    @PostConstruct
+    private void addAdmin(){
+        User user = new User();
+        if (!userRepository.existsById(1L)){
+            user.setEmployee(null);
+            user.setUsername("hr@test.com");
+            user.setRole(Role.HR);
+            user.setPassword(passwordEncoder().encode("hr"));
+            userRepository.save(user);
+        }
     }
 
     @Override

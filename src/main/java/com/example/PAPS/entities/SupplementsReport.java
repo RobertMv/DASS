@@ -4,19 +4,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@NoArgsConstructor
 @Data
-public class CarSell {
+@NoArgsConstructor
+public class SupplementsReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    private Car car;
+    private String supplier;
 
-    @OneToOne
-    private Client buyer;
+    private String month;
 }
