@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +13,7 @@ public class CarDto {
 
     private Long id;
     private String VIN, model, color, owner;
-    private Date dateOfManufacture;
+    private LocalDate dateOfManufacture;
     private Double price;
     private String ownerPassport;
 }

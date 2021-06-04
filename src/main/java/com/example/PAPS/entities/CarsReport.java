@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -24,9 +24,9 @@ public class CarsReport {
 
     private String color;
 
-    private Date dateOfManufacture;
+    private LocalDate dateOfManufacture;
 
     private Double price;
 
-    private Date dateOfSelling;
+    private LocalDate dateOfSelling;
 }

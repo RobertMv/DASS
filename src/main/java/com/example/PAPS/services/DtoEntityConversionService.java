@@ -81,7 +81,7 @@ public class DtoEntityConversionService {
     public Insurance convert(InsuranceDto dto) {
         Insurance entity = new Insurance();
         entity.setId(dto.getId());
-        entity.setCar(carRepository.findCarByVIN(dto.getCar()));
+        entity.setCar(carRepository.findCarByVin(dto.getCar()));
         entity.setKind(dto.getKind());
         entity.setSeries(dto.getSeries());
         entity.setNumber(dto.getNumber());
@@ -92,7 +92,7 @@ public class DtoEntityConversionService {
     public InsuranceDto convert(Insurance entity) {
         InsuranceDto dto = new InsuranceDto();
         dto.setId(entity.getId());
-        dto.setCar(entity.getCar().getVIN());
+        dto.setCar(entity.getCar().getVin());
         dto.setSeries(entity.getSeries());
         dto.setKind(entity.getKind());
         dto.setType(entity.getType());
@@ -125,7 +125,7 @@ public class DtoEntityConversionService {
     public MaintenanceOrder convert(MaintenanceOrderDto dto) {
         MaintenanceOrder entity = new MaintenanceOrder();
         entity.setId(dto.getId());
-        entity.setCar(carRepository.findCarByVIN(dto.getCar()));
+        entity.setCar(carRepository.findCarByVin(dto.getCar()));
         entity.setDescription(dto.getDescription());
         return entity;
     }
@@ -134,7 +134,7 @@ public class DtoEntityConversionService {
         MaintenanceOrderDto dto = new MaintenanceOrderDto();
         dto.setId(entity.getId());
         dto.setDescription(entity.getDescription());
-        dto.setCar(entity.getCar().getVIN());
+        dto.setCar(entity.getCar().getVin());
         dto.setPrice(entity.getPrice());
         dto.setDateOfMaintenance(entity.getDateOfMaintenance());
         return dto;
@@ -166,7 +166,7 @@ public class DtoEntityConversionService {
         entity.setModel(dto.getModel());
         entity.setDateOfManufacture(dto.getDateOfManufacture());
         entity.setOwner(clientRepository.findClientByPassport(dto.getOwnerPassport()));
-        entity.setVIN(dto.getVIN());
+        entity.setVin(dto.getVIN());
         return entity;
     }
 
@@ -179,7 +179,7 @@ public class DtoEntityConversionService {
         dto.setDateOfManufacture(entity.getDateOfManufacture());
         dto.setOwner(entity.getOwner().getFio());
         dto.setOwnerPassport(entity.getOwnerPassport());
-        dto.setVIN(entity.getVIN());
+        dto.setVIN(entity.getVin());
         return dto;
     }
 }

@@ -7,6 +7,7 @@ import com.example.PAPS.repositories.CarRepository;
 import com.example.PAPS.repositories.CarsReportRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -28,13 +29,13 @@ public class CarService {
     }
 
     public void sell(CarDto carDto){
-        Car car = carRepository.findCarByVIN(carDto.getVIN());
+        Car car = carRepository.findCarByVin(carDto.getVIN());
         carRepository.delete(car);
         CarsReport report = new CarsReport();
         report.setModel(car.getModel());
         report.setDateOfManufacture(car.getDateOfManufacture());
-        report.setDateOfSelling(new Date());
-        report.setVIN(car.getVIN());
+        report.setDateOfSelling(LocalDate.now());
+        report.setVIN(car.getVin());
         report.setColor(car.getColor());
         report.setPrice(car.getPrice());
         carsReportRepository.save(report);
