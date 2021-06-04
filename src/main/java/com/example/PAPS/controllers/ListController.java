@@ -64,7 +64,7 @@ public class ListController {
         orderService.orderIsDone(orderDto);
     }
 
-    @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER"})
+    @Secured({"ROLE_DIRECTOR", "ROLE_SERVICE_MANAGER", "ROLE_PARTS_SELLING_MANAGER"})
     @GetMapping("/add/spare")
     public void addSpareToList(@RequestBody SpareDto spareDto) {
         spareService.add(spareDto);

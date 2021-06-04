@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class ClientDto {
 
     private Long id;
-    private String FIO;
-    private Long passportID;
+    private String fio;
+    private String passport;
     private String address;
 }

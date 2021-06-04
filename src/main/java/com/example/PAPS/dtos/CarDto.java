@@ -15,5 +15,5 @@ public class CarDto {
     private String VIN, model, color, owner;
     private Date dateOfManufacture;
     private Double price;
-    private Long ownerPassport;
+    private String ownerPassport;
 }

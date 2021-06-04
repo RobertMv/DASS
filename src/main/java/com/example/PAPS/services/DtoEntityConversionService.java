@@ -144,8 +144,8 @@ public class DtoEntityConversionService {
         Client entity = new Client();
         entity.setId(dto.getId());
         entity.setAddress(dto.getAddress());
-        entity.setPassportID(dto.getPassportID());
-        entity.setFIO(dto.getFIO());
+        entity.setPassport(dto.getPassport());
+        entity.setFio(dto.getFio());
         return entity;
     }
 
@@ -153,8 +153,8 @@ public class DtoEntityConversionService {
         ClientDto dto = new ClientDto();
         dto.setId(entity.getId());
         dto.setAddress(entity.getAddress());
-        dto.setPassportID(entity.getPassportID());
-        dto.setFIO(entity.getFIO());
+        dto.setPassport(entity.getPassport());
+        dto.setFio(entity.getFio());
         return dto;
     }
 
@@ -165,7 +165,7 @@ public class DtoEntityConversionService {
         entity.setColor(dto.getColor());
         entity.setModel(dto.getModel());
         entity.setDateOfManufacture(dto.getDateOfManufacture());
-        entity.setOwner(clientRepository.findClientByPassportID(dto.getOwnerPassport()));
+        entity.setOwner(clientRepository.findClientByPassport(dto.getOwnerPassport()));
         entity.setVIN(dto.getVIN());
         return entity;
     }
@@ -177,7 +177,7 @@ public class DtoEntityConversionService {
         dto.setColor(entity.getColor());
         dto.setModel(entity.getModel());
         dto.setDateOfManufacture(entity.getDateOfManufacture());
-        dto.setOwner(entity.getOwner().getFIO());
+        dto.setOwner(entity.getOwner().getFio());
         dto.setOwnerPassport(entity.getOwnerPassport());
         dto.setVIN(entity.getVIN());
         return dto;

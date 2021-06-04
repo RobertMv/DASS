@@ -15,10 +15,10 @@ public class Client {
     private Long id;
 
     @Column(name = "fio", nullable = false)
-    private String FIO;
+    private String fio;
 
     @Column(name = "passport_id", nullable = false, unique = true)
-    private Long passportID;
+    private String passport;
 
     @Column(name = "address", nullable = false)
     private String address;

@@ -30,5 +30,5 @@ public class Car {
     @OneToOne
     private Client owner;
 
-    private Long ownerPassport;
+    private String ownerPassport;
 }
