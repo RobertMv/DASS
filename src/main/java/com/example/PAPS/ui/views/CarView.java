@@ -69,6 +69,7 @@ public class CarView extends VerticalLayout {
         addNewBtn.addClickListener(e -> {
             try {
                 carComponent.editCar(new Car());
+
             } catch (ValidationException validationException) {
                 validationException.printStackTrace();
             }
