@@ -40,7 +40,7 @@ public class CarView extends VerticalLayout {
         filter.setMaxLength(17);
 
         HorizontalLayout actions = new HorizontalLayout(filter, addNewBtn);
-        add(actions, grid);
+        add(actions, grid, carComponent);
 
         filter.setPlaceholder("Поиск по vin");
         filter.setValueChangeMode(ValueChangeMode.EAGER);
@@ -58,22 +58,9 @@ public class CarView extends VerticalLayout {
         grid.addColumn(car -> car.getOwner().getFio()).setHeader("ФИО владельца");
         grid.addColumn(car -> car.getOwner().getPassport()).setHeader("Срия и номер паспорта владельца");
 
-        grid.asSingleSelect().addValueChangeListener(e -> {
-            try {
-                carComponent.editCar(e.getValue());
-            } catch (ValidationException validationException) {
-                validationException.printStackTrace();
-            }
-        });
+        grid.asSingleSelect().addValueChangeListener(e -> carComponent.editCar(e.getValue()));
 
-        addNewBtn.addClickListener(e -> {
-            try {
-                carComponent.editCar(new Car());
-
-            } catch (ValidationException validationException) {
-                validationException.printStackTrace();
-            }
-        });
+        addNewBtn.addClickListener(e -> carComponent.editCar(new Car()));//carComponent.editCar(new Car())
 
         carComponent.setChangeHandler(() -> {
             carComponent.setVisible(false);

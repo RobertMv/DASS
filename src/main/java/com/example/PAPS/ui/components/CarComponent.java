@@ -1,7 +1,6 @@
 package com.example.PAPS.ui.components;
 
 import com.example.PAPS.entities.Car;
-import com.example.PAPS.entities.Client;
 import com.example.PAPS.repositories.CarRepository;
 import com.example.PAPS.repositories.ClientRepository;
 import com.vaadin.flow.component.Key;
@@ -11,15 +10,14 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @SpringComponent
 @UIScope
@@ -34,7 +32,7 @@ public class CarComponent extends VerticalLayout implements KeyNotifier {
     TextField model = new TextField("Модель");
     TextField color = new TextField("Цвет");
     TextField ownerPassport = new TextField("Серия и номер паспорта владельца");
-    BigDecimalField price = new BigDecimalField("Цена");
+    TextField price = new TextField("Цена");
     TextField ownerName = new TextField("ФИО владельца");
     DatePicker dateOfManufacture = new DatePicker("Дата производства");
 
@@ -58,12 +56,10 @@ public class CarComponent extends VerticalLayout implements KeyNotifier {
         binder.forField(model).bind(Car::getModel, Car::setModel);
         binder.forField(color).bind(Car::getColor, Car::setColor);
         binder.forField(price)
-                .withConverter(
-                        BigDecimal::doubleValue,
-                        BigDecimal::new,
-                        "Should be a float")
+                .withNullRepresentation("")
+                .withConverter(new StringToDoubleConverter("Цена должна быть в формате ##.##"))
                 .bind(Car::getPrice, Car::setPrice);
-        binder.forField(ownerName).bind(car1 -> car1.getOwner().getFio(), (car1, s) -> car1.setOwner(clientRepository.findClientByPassport(car1.getOwnerPassport())));
+        //binder.forField(ownerName).withNullRepresentation("").bind(car1 -> car1.getOwner().getFio(), (car1, s) -> car1.setOwner(clientRepository.findClientByPassport(car1.getOwnerPassport())));
         binder.forField(ownerPassport).bind(Car::getOwnerPassport, Car::setOwnerPassport);
         binder.forField(dateOfManufacture).bind(Car::getDateOfManufacture, Car::setDateOfManufacture);
         //binder.bindInstanceFields(this);
@@ -73,30 +69,11 @@ public class CarComponent extends VerticalLayout implements KeyNotifier {
         save.getElement().getThemeList().add("primary");
         delete.getElement().getThemeList().add("error");
 
-        addKeyPressListener(Key.ENTER, e -> {
-            try {
-                save();
-            } catch (ValidationException validationException) {
-                validationException.printStackTrace();
-            }
-        });
+        addKeyPressListener(Key.ENTER, e -> save());
 
-        save.addClickListener(e -> {
-            try {
-                save();
-                binder.writeBean(this.car);
-            } catch (ValidationException validationException) {
-                validationException.printStackTrace();
-            }
-        });
+        save.addClickListener(e -> save());
         delete.addClickListener(e -> delete());
-        cancel.addClickListener(e -> {
-            try {
-                editCar(car);
-            } catch (ValidationException validationException) {
-                validationException.printStackTrace();
-            }
-        });
+        cancel.addClickListener(e -> editCar(car));
         setVisible(false);
     }
 
@@ -105,16 +82,15 @@ public class CarComponent extends VerticalLayout implements KeyNotifier {
         changeHandler.onChange();
     }
 
-    void save() throws ValidationException {
+    void save() {
         car.setOwner(clientRepository.findClientByPassport(ownerPassport.getValue()));
-        car.setPrice(price.getValue().doubleValue());
+        car.setPrice(Double.parseDouble(price.getValue()));
         car.setDateOfManufacture(dateOfManufacture.getValue());
         carRepository.save(car);
         changeHandler.onChange();
     }
 
-    public final void editCar(Car c) throws ValidationException {
-        setVisible(true);
+    public final void editCar(Car c){
         if (c == null) {
             setVisible(false);
             return;
@@ -124,7 +100,9 @@ public class CarComponent extends VerticalLayout implements KeyNotifier {
         else
             this.car = c;
 
-        binder.readBean(this.car);
+        binder.setBean(car);
+
+        setVisible(true);
 
         vin.focus();
     }
@@ -134,5 +112,17 @@ public class CarComponent extends VerticalLayout implements KeyNotifier {
 
     public void setChangeHandler(ClientComponent.ChangeHandler h) {
         changeHandler = h;
+    }
+
+    private Car getTestCar(){
+        Car mycar = new Car();
+        mycar.setVin("717123412847374");
+        mycar.setModel("Tesla model S");
+        mycar.setColor("Gray");
+        mycar.setDateOfManufacture(LocalDate.now());
+        mycar.setPrice(59990.00);
+        mycar.setOwner(clientRepository.findClientByPassport("9214756693"));
+        mycar.setOwnerPassport("9214756693");
+        return car;
     }
 }

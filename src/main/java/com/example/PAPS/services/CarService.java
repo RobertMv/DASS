@@ -33,7 +33,7 @@ public class CarService {
         carRepository.delete(car);
         CarsReport report = new CarsReport();
         report.setModel(car.getModel());
-        report.setDateOfManufacture(car.getDateOfManufacture());
+        report.setDateOfManufacture(LocalDate.now());//car.getDateOfManufacture()
         report.setDateOfSelling(LocalDate.now());
         report.setVIN(car.getVin());
         report.setColor(car.getColor());
