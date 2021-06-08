@@ -78,6 +78,10 @@ public class CarComponent extends VerticalLayout implements KeyNotifier {
     }
 
     void delete() {
+        Car mycar = carRepository.findCarByVin(car.getVin());
+        car.setOwner(mycar.getOwner());
+        car.setPrice(mycar.getPrice());
+        car.setDateOfManufacture(mycar.getDateOfManufacture());
         carRepository.delete(car);
         changeHandler.onChange();
     }
