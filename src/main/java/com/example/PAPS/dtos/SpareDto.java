@@ -11,4 +11,5 @@ public class SpareDto {
 
     private Long id, vendorCode;
     private String name, code, supplier;
+    private Integer amount;
 }

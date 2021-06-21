@@ -10,4 +10,10 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     List<Employee> findAll();
+
+    Employee findByName(String name);
+
+    List<Employee> findAllByName(String name);
+
+    Employee findByEmail(String email);
 }

@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Spare {
+public class SparesReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +23,7 @@ public class Spare {
 
     private Integer amount;
 
-    @ManyToOne
-    private Supplier supplier;
+    private String supplier;
+
+    private String month;
 }

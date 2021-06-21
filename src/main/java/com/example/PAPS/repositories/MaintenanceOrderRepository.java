@@ -14,4 +14,6 @@ public interface MaintenanceOrderRepository extends JpaRepository<MaintenanceOrd
     List<MaintenanceOrder> findAll();
 
     Optional<MaintenanceOrder> findById(Long id);
+
+    List<MaintenanceOrder> findAllByIsDoneIsTrue();
 }

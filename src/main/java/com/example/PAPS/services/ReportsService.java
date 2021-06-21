@@ -1,23 +1,44 @@
 package com.example.PAPS.services;
 
+import com.example.PAPS.entities.CarsReport;
+import com.example.PAPS.entities.MaintenanceOrder;
+import com.example.PAPS.entities.SparesReport;
+import com.example.PAPS.entities.SupplementsReport;
+import com.example.PAPS.repositories.CarsReportRepository;
+import com.example.PAPS.repositories.MaintenanceOrderRepository;
+import com.example.PAPS.repositories.SparesReportRepository;
+import com.example.PAPS.repositories.SupplementReportRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReportsService {
+    private final CarsReportRepository carsReportRepository;
+    private final SparesReportRepository sparesReportRepository;
+    private final SupplementReportRepository supplementReportRepository;
+    private final MaintenanceOrderRepository orderRepository;
 
-    public String getOrdersReport(){
-        return "orders report";
+    public ReportsService(CarsReportRepository carsReportRepository, SparesReportRepository sparesReportRepository, SupplementReportRepository supplementReportRepository, MaintenanceOrderRepository orderRepository) {
+        this.carsReportRepository = carsReportRepository;
+        this.sparesReportRepository = sparesReportRepository;
+        this.supplementReportRepository = supplementReportRepository;
+        this.orderRepository = orderRepository;
     }
 
-    public String getSellsReport(){
-        return "sells report";
+    public List<MaintenanceOrder> getOrdersReport(){
+        return orderRepository.findAllByIsDoneIsTrue();
     }
 
-    public String getMaterialConsumptionReport(){
-        return "material consumption report";
+    public List<CarsReport> getSellsReport(){
+        return carsReportRepository.findAll();
     }
 
-    public String getSupplementReport(){
-        return "supplement report";
+    public List<SparesReport> getMaterialConsumptionReport(){
+        return sparesReportRepository.findAll();
+    }
+
+    public List<SupplementsReport> getSupplementReport(){
+        return supplementReportRepository.findAll();
     }
 }

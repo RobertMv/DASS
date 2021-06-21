@@ -25,4 +25,8 @@ public class EmployeeServiceImpl {
     public void add(EmployeeDto employeeDto) {
         employeeRepository.save(conversionService.convert(employeeDto));
     }
+
+    public void delete(EmployeeDto employeeDto){
+        employeeRepository.delete(conversionService.convert(employeeDto));
+    }
 }

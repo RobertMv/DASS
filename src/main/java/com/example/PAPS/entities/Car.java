@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,19 +16,19 @@ public class Car {
     private Long id;
 
     @Column(name = "vin", nullable = false, unique = true)
-    private String VIN;
+    private String vin;
 
     @Column(name = "model", nullable = false)
     private String model;
 
     private String color; //тачка мб и не крашеная наверное, поэтому допускаю null'овый цвет
 
-    private Date dateOfManufacture;
+    private LocalDate dateOfManufacture;
 
     private Double price;
 
     @OneToOne
     private Client owner;
 
-    private Integer amount;
+    private String ownerPassport;
 }

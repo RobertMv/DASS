@@ -1,5 +1,6 @@
 package com.example.PAPS.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -18,12 +20,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "username", nullable = false)
-    @JoinColumn(name = "employee", referencedColumnName = "email")
-    private String username;
-
     @OneToOne
     private Employee employee;
+
+    @Column(nullable = false)
+    @JoinColumn(name = "email", table = "employee")
+    private String username;
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)

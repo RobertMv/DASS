@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -24,7 +24,7 @@ public class Employee {
     private String patronymic;
 
     @Column(nullable = false)
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column(nullable = false)
     private String sex;
@@ -39,9 +39,9 @@ public class Employee {
     private Long SNILS;
 
     @Column(nullable = false)
-    private Date dateOfEmployment;
+    private LocalDate dateOfEmployment;
 
-    private Date dateOfDismissal;
+    private LocalDate dateOfDismissal;
 
     @Column(nullable = false, unique = true)
     private String phone;

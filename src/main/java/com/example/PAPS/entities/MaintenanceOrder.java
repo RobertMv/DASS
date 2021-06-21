@@ -25,9 +25,6 @@ public class MaintenanceOrder {
     private String description;
 
     @Column(nullable = false)
-    private String code;
-
-    @Column(nullable = false)
     private boolean isDone;
 
     @OneToOne
