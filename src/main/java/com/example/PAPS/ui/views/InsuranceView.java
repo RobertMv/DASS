@@ -15,6 +15,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.util.StringUtils;
 
+import java.util.stream.Collectors;
+
 @Route
 @PageTitle("Страховки")
 public class InsuranceView extends VerticalLayout {
@@ -48,7 +50,7 @@ public class InsuranceView extends VerticalLayout {
         grid.getColumnByKey("number").setHeader("Номер").setAutoWidth(true);
         grid.getColumnByKey("type").setHeader("Тип").setAutoWidth(true);
         grid.getColumnByKey("kind").setHeader("Вид").setAutoWidth(true);
-        grid.addColumn(insurance -> insurance.getCar().getVin()).setHeader("VIN автомобиля");
+        //grid.addColumn(insurance -> insurance.getCar().getVin()).setHeader("VIN автомобиля");
 
         grid.asSingleSelect().addValueChangeListener(e -> insuranceComponent.edit(e.getValue()));
 
@@ -66,6 +68,6 @@ public class InsuranceView extends VerticalLayout {
         if (!StringUtils.hasText(number))
             grid.setItems(insuranceRepository.findAll());
         else
-            grid.setItems(insuranceRepository.findAll().stream().filter(insurance -> insurance.getNumber().equals(number)));
+            grid.setItems(insuranceRepository.findAll().stream().filter(insurance -> insurance.getNumber().equals(number)).collect(Collectors.toList()));
     }
 }
