@@ -20,10 +20,10 @@ public class Insurance {
     @Column(nullable = false, unique = true)
     private String number;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String type;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String kind;
 
     @OneToOne

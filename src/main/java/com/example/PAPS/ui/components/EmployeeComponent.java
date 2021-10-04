@@ -10,6 +10,7 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToDoubleConverter;
@@ -27,7 +28,7 @@ public class EmployeeComponent  extends VerticalLayout implements KeyNotifier {
     TextField surname = new TextField("Фамилия");
     TextField patronymic = new TextField("Отчество");
     TextField name = new TextField("Имя");
-    TextField sex = new TextField("Пол");
+    Select<String> sex = new Select<>("М", "Ж");
     TextField phone = new TextField("Телефон");
     TextField email = new TextField("Эл. почта");
     TextField passport = new TextField("Серия и номер паспорта");
@@ -51,7 +52,7 @@ public class EmployeeComponent  extends VerticalLayout implements KeyNotifier {
     public EmployeeComponent(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
 
-        sex.setMaxLength(1);
+        sex.setPlaceholder("Пол");
         phone.setMaxLength(11);
         passport.setMaxLength(10);
         inn.setMaxLength(12);
